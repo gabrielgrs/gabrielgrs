@@ -1,4 +1,5 @@
 ### Hi there 👋
+[![Twitter Badge](https://img.shields.io/badge/%40__gabuki-twitter-informational&link=https://twitter.com/_gabuki)](https://twitter.com/_gabuki) 
 
 <!--
 **gabrielgrs/gabrielgrs** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
