@@ -1,6 +1,6 @@
 # Hi there! ~ 👋
 
-### I'm a Front End Developer from Brazil!
+### I'm a Front-end engineer from Brazil!
 
 ### I hope you have fun seeing my codes! 💜
 
