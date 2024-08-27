@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 95%;
+    --foreground: 240 10% 3.9%;
+    --primary: 210 70% 50%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 250 70% 55%;
+    --secondary-foreground: 240 5.9% 10%;
+ 
+  }
+
+  .dark {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+    --primary: 210 70% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 250 70% 55%;
+    --secondary-foreground: 0 0% 98%;
+
+  }
+}
+
+@layer base { 
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  a {
+    @apply cursor-pointer;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
