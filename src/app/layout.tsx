@@ -1,9 +1,9 @@
 import '../styles/globals.css'
+import { MouseFollower } from '@/components/mouse-follower'
 import type { Metadata } from 'next'
 import { Manrope as font } from 'next/font/google'
-import ClientLayout from './client-layout'
-import { MouseFollower } from '@/components/mouse-follower'
 import { ReactNode } from 'react'
+import ClientLayout from './client-layout'
 
 const inter = font({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
 

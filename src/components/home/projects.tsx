@@ -1,9 +1,9 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { projects } from './helpers'
 import { Section } from './section'
-import { motion } from 'framer-motion'
 
 export function Projects() {
 	const [hovered, setHovered] = useState(-1)

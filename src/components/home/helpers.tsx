@@ -30,7 +30,6 @@ export const works: AcademicAndWork[] = [
 	},
 	{
 		title: 'CTO',
-		icon: '',
 		institution: 'Biodinâmica Saúde',
 		startAt: new Date(2022, 9),
 		endAt: new Date(2022, 9),

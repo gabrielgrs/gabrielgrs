@@ -1,10 +1,10 @@
 'use client'
 
-import { Section } from './section'
-import { education } from './helpers'
 import dayjs from 'dayjs'
-import { Minus } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Minus } from 'lucide-react'
+import { education } from './helpers'
+import { Section } from './section'
 
 export function Education() {
 	return (

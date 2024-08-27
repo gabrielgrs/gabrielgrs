@@ -1,11 +1,11 @@
 'use client'
 
+import { motion } from 'framer-motion'
+import { AtSign, Github, Lightbulb } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { OnlyClient } from '../only-client'
-import { useTheme } from 'next-themes'
-import { AtSign, Github, Lightbulb } from 'lucide-react'
-import { motion } from 'framer-motion'
 
 export type NavItemProps = {
 	children: ReactNode

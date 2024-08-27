@@ -1,7 +1,7 @@
 'use client'
 
-import { ArrowUpRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 
 export function Contact() {
 	return (

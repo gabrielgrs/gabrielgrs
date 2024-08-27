@@ -1,11 +1,11 @@
 import { Navbar } from '@/components/home/navbar'
 import { GithubData } from '@/types'
-import { Footer } from './footer'
 import { Contact } from './contact'
 import { Education } from './education'
-import { Projects } from './projects'
+import { Footer } from './footer'
 import { Main } from './main'
 import { Professional } from './professional'
+import { Projects } from './projects'
 import { Skills } from './skills'
 
 type Props = {

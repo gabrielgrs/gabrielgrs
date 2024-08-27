@@ -1,8 +1,8 @@
 'use client'
 
-import { Section } from './section'
-import { skills } from './helpers'
 import { motion } from 'framer-motion'
+import { skills } from './helpers'
+import { Section } from './section'
 
 export function Skills() {
 	return (

@@ -9,6 +9,6 @@ export function OnlyClient({ children }: { children: ReactNode }) {
 		setIsClient(true)
 	}, [])
 
-  if (!isClient) return null
-  return <>{children}</>
+	if (!isClient) return null
+	return <>{children}</>
 }
