@@ -3,31 +3,28 @@
 import { useEffect, useState } from 'react'
 
 export function MouseFollower() {
-	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+	const [position, setPosition] = useState({ x: 0, y: 0 })
 
 	useEffect(() => {
-		const handleMouseMove = (event: MouseEvent) => {
-			setMousePosition({
-				x: event.clientX,
-				y: event.clientY,
-			})
+		const updateCursorPosition = (e: MouseEvent) => {
+			setPosition({ x: e.clientX, y: e.clientY })
 		}
 
-		window.addEventListener('mousemove', handleMouseMove)
+		window.addEventListener('mousemove', updateCursorPosition)
 
 		return () => {
-			window.removeEventListener('mousemove', handleMouseMove)
+			window.removeEventListener('mousemove', updateCursorPosition)
 		}
 	}, [])
 
 	return (
 		<div
-			className="absolute w-14 h-14 border-2 border-foreground rounded-full pointer-events-none z-50 shadow-lg"
+			className="fixed pointer-events-none w-16 h-16 rounded-full border border-gray-500 transition-all duration-300 ease-out"
 			style={{
-				top: mousePosition.y,
-				left: mousePosition.x,
+				left: `${position.x}px`,
+				top: `${position.y}px`,
 				transform: 'translate(-50%, -50%)',
 			}}
-		></div>
+		/>
 	)
 }

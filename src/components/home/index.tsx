@@ -1,9 +1,15 @@
-import { Navbar } from '@/components/home/navbar'
+'use client'
+
 import { GithubData } from '@/types'
+import { Home } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { Contact } from './contact'
+import { DynamicIsland } from './dynamic-island'
 import { Education } from './education'
 import { Footer } from './footer'
 import { Main } from './main'
+import { Navbar } from './navbar'
 import { Professional } from './professional'
 import { Projects } from './projects'
 import { Skills } from './skills'
@@ -13,12 +19,29 @@ type Props = {
 	bio: string
 }
 
-export async function HomeTemplate({ githubData }: Props) {
-	return (
-		<>
-			<Navbar login={githubData.login} />
+export function HomeTemplate({ githubData }: Props) {
+	const searchParams = useSearchParams()
+	const [distance, setDistance] = useState(0)
 
-			<div className="mx-auto max-w-2xl px-4">
+	useEffect(() => {
+		window.addEventListener('scroll', () => {
+			setDistance(window.scrollY)
+		})
+	}, [])
+
+	return (
+		<div className="relative">
+			<div className="mx-auto max-w-2xl px-4 relative z-10">
+				{searchParams.get('t') ? (
+					<Navbar />
+				) : (
+					<DynamicIsland
+						icon={Home}
+						title={distance > 200 ? 'About' : 'gabrigrs'}
+						subtitle={distance > 200 ? 'This is my website' : 'welcome'}
+					/>
+				)}
+
 				<main>
 					<Main avatar={githubData.avatar_url} name={githubData.name ?? 'Person avatar'} bio={githubData.bio!} />
 					<Professional />
@@ -29,6 +52,6 @@ export async function HomeTemplate({ githubData }: Props) {
 				</main>
 				<Footer />
 			</div>
-		</>
+		</div>
 	)
 }

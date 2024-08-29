@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { projects } from './helpers'
-import { Section } from './section'
 
 export function Projects() {
 	const [hovered, setHovered] = useState(-1)
 
 	return (
-		<Section title="Work" id="work">
-			<ul className="grid grid-cols-3">
+		<section>
+			<h2 className="relative">Select projects</h2>
+			<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 				{projects.map((project, index) => (
 					<motion.li
 						key={project.title}
@@ -46,6 +46,6 @@ export function Projects() {
 					</motion.li>
 				))}
 			</ul>
-		</Section>
+		</section>
 	)
 }

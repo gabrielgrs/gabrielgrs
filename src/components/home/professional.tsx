@@ -4,11 +4,11 @@ import dayjs from 'dayjs'
 import { motion } from 'framer-motion'
 import { Minus } from 'lucide-react'
 import { works } from './helpers'
-import { Section } from './section'
 
 export function Professional() {
 	return (
-		<Section title="Professional" id="professional">
+		<section>
+			<h2 className="relative">Professionals</h2>
 			<ul className="flex flex-col gap-4 pb-10">
 				{works.map((item, index) => (
 					<motion.li
@@ -24,11 +24,11 @@ export function Professional() {
 						</div>
 						<div className="flex flex-col gap-2">
 							<span>{item.title}</span>
-							<span>{item.institution}</span>
+							<span className="text-sm text-gray-400">{item.institution}</span>
 						</div>
 					</motion.li>
 				))}
 			</ul>
-		</Section>
+		</section>
 	)
 }
