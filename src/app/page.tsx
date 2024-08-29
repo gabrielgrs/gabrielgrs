@@ -32,9 +32,14 @@ async function generateAbout() {
 	// return data.choices[0].message.content
 }
 
-export default async function Home() {
+type Props = {
+	searchParams: {
+		t?: string
+	}
+}
+export default async function Home(props: Props) {
 	const data = await getGithubData('gabrielgrs')
 	const bio = await generateAbout()
 
-	return <HomeTemplate githubData={data} bio={bio} />
+	return <HomeTemplate githubData={data} bio={bio} showNavbar={Boolean(props.searchParams.t)} />
 }

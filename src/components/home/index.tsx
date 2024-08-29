@@ -2,7 +2,6 @@
 
 import { GithubData } from '@/types'
 import { Home } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Contact } from './contact'
 import { DynamicIsland } from './dynamic-island'
@@ -17,10 +16,10 @@ import { Skills } from './skills'
 type Props = {
 	githubData: GithubData
 	bio: string
+	showNavbar: boolean
 }
 
-export function HomeTemplate({ githubData }: Props) {
-	const searchParams = useSearchParams()
+export function HomeTemplate({ githubData, showNavbar }: Props) {
 	const [distance, setDistance] = useState(0)
 
 	useEffect(() => {
@@ -32,7 +31,7 @@ export function HomeTemplate({ githubData }: Props) {
 	return (
 		<div className="relative">
 			<div className="mx-auto max-w-2xl px-4 relative z-10">
-				{searchParams.get('t') ? (
+				{showNavbar ? (
 					<Navbar />
 				) : (
 					<DynamicIsland
