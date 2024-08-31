@@ -1,4 +1,5 @@
 'use client'
+
 import { ArrowUpRight } from 'lucide-react'
 
 export function Navbar() {

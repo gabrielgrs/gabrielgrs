@@ -16,11 +16,10 @@ export function DynamicIsland({ icon: Icon, title, subtitle }: Props) {
 	return (
 		<header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 backdrop-blur-md">
 			<motion.div
-				layout
-				className="bg-foreground/5 text-white rounded-full px-3 py-2 shadow-lg flex items-center justify-center cursor-pointer"
+				className="bg-neutral-900 text-white rounded-full px-3 py-2 shadow-lg flex items-center justify-center cursor-pointer"
 				initial={{ width: 'auto' }}
 				animate={{
-					width: isHovered ? '240px' : '120px',
+					width: isHovered ? '240px' : '160px',
 					transition: { type: 'spring', stiffness: 500, damping: 30 },
 				}}
 				onHoverStart={() => setIsHovered(true)}
@@ -43,7 +42,7 @@ export function DynamicIsland({ icon: Icon, title, subtitle }: Props) {
 						exit={{ opacity: 0, y: -10 }}
 						transition={{ type: 'spring', stiffness: 500, damping: 30 }}
 					>
-						<span className="text-xs font-semibold whitespace-nowrap">{title}</span>
+						<span className="text-sm font-semibold whitespace-nowrap">{title}</span>
 						{isHovered && (
 							<motion.div
 								className="flex flex-col items-start"
@@ -51,7 +50,7 @@ export function DynamicIsland({ icon: Icon, title, subtitle }: Props) {
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.1 }}
 							>
-								<span className="text-[10px] text-gray-300 whitespace-nowrap">{subtitle}</span>
+								<span className="text-xs text-gray-500 whitespace-nowrap">{subtitle}</span>
 								<div className="flex mt-1 space-x-2">
 									<a
 										href="https://github.com/yourusername"
@@ -60,7 +59,7 @@ export function DynamicIsland({ icon: Icon, title, subtitle }: Props) {
 										className="text-gray-300 hover:text-white transition-colors"
 										aria-label="GitHub Profile"
 									>
-										<Github size={12} />
+										<Github size={14} />
 									</a>
 									<a
 										href="https://twitter.com/yourusername"
@@ -69,7 +68,7 @@ export function DynamicIsland({ icon: Icon, title, subtitle }: Props) {
 										className="text-gray-300 hover:text-white transition-colors"
 										aria-label="Twitter Profile"
 									>
-										<Twitter size={12} />
+										<Twitter size={14} />
 									</a>
 								</div>
 							</motion.div>
