@@ -19,7 +19,7 @@ export function MouseFollower() {
 
 	return (
 		<div
-			className="fixed pointer-events-none w-16 h-16 rounded-full border border-gray-500 transition-all duration-300 ease-out"
+			className="fixed pointer-events-none h-6 w-6 rounded-full bg-foreground opacity-70 transition-all duration-300 ease-out z-0"
 			style={{
 				left: `${position.x}px`,
 				top: `${position.y}px`,

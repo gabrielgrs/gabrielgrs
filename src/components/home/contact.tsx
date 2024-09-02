@@ -10,7 +10,7 @@ export function Contact() {
 				initial={{ scale: 0 }}
 				whileInView={{ scale: [0, 1.2, 1] }}
 				transition={{ duration: 1 }}
-				className="text-center text-9xl font-bold text-gray-500"
+				className="text-center text-9xl font-bold text-foreground/20"
 			>
 				Say hello
 			</motion.h1>

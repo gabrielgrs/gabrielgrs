@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 type AcademicAndWork = {
 	title: string
 	institution: string
@@ -8,39 +10,39 @@ type AcademicAndWork = {
 
 export const works: AcademicAndWork[] = [
 	{
-		title: 'Internal Developer',
+		title: 'Intern Developer',
 		institution: 'Stefanini IT',
-		startAt: new Date(2022, 9),
-		endAt: new Date(2022, 9),
-		description: 'Lorem ipsum',
+		startAt: new Date(2017, 1),
+		endAt: new Date(2018, 8),
+		description: faker.lorem.paragraph(2),
 	},
 	{
 		title: 'Full-stack Mid Developer',
 		institution: 'Stefanini IT',
-		startAt: new Date(2022, 9),
-		endAt: new Date(2022, 9),
-		description: 'Lorem ipsum',
+		startAt: new Date(2018, 8),
+		endAt: new Date(2018, 12),
+		description: faker.lorem.paragraph(2),
 	},
 	{
 		title: 'Full-stack Developer',
 		institution: 'Leopardus - Freelance',
 		startAt: new Date(2022, 9),
 		endAt: new Date(2022, 9),
-		description: 'Lorem ipsum',
+		description: faker.lorem.paragraph(2),
 	},
 	{
-		title: 'CTO',
+		title: 'Full-stack Developer',
 		institution: 'Biodinâmica Saúde',
-		startAt: new Date(2022, 9),
-		endAt: new Date(2022, 9),
-		description: 'Lorem ipsum',
+		startAt: new Date(2021, 9),
+		endAt: new Date(2022, 4),
+		description: faker.lorem.paragraph(2),
 	},
 	{
 		title: 'Front-end Senior Developer',
 		institution: 'Trinca',
 		startAt: new Date(2019, 0),
 		endAt: null,
-		description: 'Lorem ipsum',
+		description: faker.lorem.paragraph(2),
 	},
 ]
 
@@ -48,14 +50,14 @@ export const education: AcademicAndWork[] = [
 	{
 		title: 'Imagine CUP',
 		institution: 'PUC',
-		startAt: new Date(2018, 9),
+		startAt: new Date(2016, 9),
 		endAt: new Date(2021, 5),
 		description: 'Lorem ipsum',
 	},
 	{
-		title: 'ADS',
+		title: 'Systems Analysis and Development',
 		institution: 'Senac',
-		startAt: new Date(2018, 9),
+		startAt: new Date(2015, 9),
 		endAt: new Date(2021, 5),
 		description: 'Lorem ipsum',
 	},
@@ -92,7 +94,6 @@ export const skills: Skill[] = [
 type Project = {
 	title: string
 	description: string
-	tags: string[]
 	source: string
 	website: string
 }
@@ -102,7 +103,6 @@ export const projects: Project[] = [
 		title: 'Project 1',
 		description:
 			'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo',
-		tags: ['tag 1', 'tag 2'],
 		source: 'github.com',
 		website: 'website.com',
 	},
@@ -110,7 +110,6 @@ export const projects: Project[] = [
 		title: 'Project 2',
 		description:
 			'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo',
-		tags: ['tag 1', 'tag 2'],
 		source: 'github.com',
 		website: 'website.com',
 	},
