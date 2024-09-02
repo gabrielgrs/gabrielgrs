@@ -1,38 +1,44 @@
 'use client'
 
 import { cn } from '@/utils/cn'
+import { texts } from '@/utils/texts'
+import { Language, Texts } from '@/utils/texts/type'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Languages, Lightbulb } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useState } from 'react'
 import { OnlyClient } from '../only-client'
 
-const links = [
+const getLinks = (navbarTexts: Texts['navbar']) => [
 	{
-		title: 'Email',
+		title: navbarTexts.email,
 		href: 'mailto:grxgabriel@gmail',
 	},
 	{
-		title: 'Github',
+		title: navbarTexts.github,
 		href: 'https://github.com/gabrielgrs',
 	},
 	{
-		title: 'Linkedin',
+		title: navbarTexts.linkedin,
 		href: 'https://www.linkedin.com/in/gabrielgrs/',
 	},
 ]
 
-export function Navbar() {
-	const [language, setLanguage] = useState<'en' | 'pt'>('pt')
+type Props = {
+	language: Language
+	onChangeLanguage: (linguageToSet: Language) => void
+}
+
+export function Navbar({ language, onChangeLanguage }: Props) {
 	const { theme, setTheme } = useTheme()
+	const { navbar } = texts[language]
 
 	return (
 		<header className="flex justify-around items-center text-sm h-14 w-full backdrop-blur-lg max-w-5xl fixed top-1 left-1/2 -translate-x-1/2 rounded-full z-50">
 			<motion.span initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.4 }} className="hidden md:block">
-				Gabriel.grs
+				gabrielgrs
 			</motion.span>
-			<nav className="flex items-center gap-4">
-				{links.map((link, index) => (
+			<nav className="flex items-center gap-1 md:gap-4">
+				{getLinks(navbar).map((link, index) => (
 					<motion.a
 						key={link.title}
 						href={link.href}
@@ -58,10 +64,10 @@ export function Navbar() {
 					initial={{ y: -100 }}
 					animate={{ y: 0 }}
 					transition={{ duration: 0.4, delay: 1.2 }}
-					onClick={() => setLanguage(language === 'en' ? 'pt' : 'en')}
+					onClick={() => onChangeLanguage(language === 'en' ? 'pt' : 'en')}
 					className="flex items-center gap-1 px-2 py-1 hover:bg-foreground rounded-full hover:text-background duration-500"
 				>
-					{language === 'en' ? 'pt' : 'en'} <Languages size={12} />
+					{navbar.language} <Languages size={12} />
 				</motion.button>
 				<OnlyClient>
 					<motion.button
@@ -74,7 +80,7 @@ export function Navbar() {
 							theme === 'dark' && 'line-through',
 						)}
 					>
-						light <Lightbulb size={12} />
+						{navbar.theme} <Lightbulb size={12} />
 					</motion.button>
 				</OnlyClient>
 			</nav>

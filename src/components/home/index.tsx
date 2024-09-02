@@ -1,8 +1,10 @@
 'use client'
 
-import { GithubData } from '@/types'
+import { changeLanguage } from '@/actions/language'
+import { Language } from '@/utils/texts/type'
+import { useState } from 'react'
+import { Academic } from './academic'
 import { Contact } from './contact'
-import { Education } from './education'
 import { Footer } from './footer'
 import { Main } from './main'
 import { Navbar } from './navbar'
@@ -11,28 +13,32 @@ import { Projects } from './projects'
 import { Skills } from './skills'
 
 type Props = {
-	githubData: GithubData
-	bio: string
-	showNavbar: boolean
+	initialLanguage: Language
 }
 
-export function HomeTemplate({ githubData }: Props) {
+export function HomeTemplate({ initialLanguage }: Props) {
+	const [language, setLanguage] = useState<Language>(initialLanguage)
+
+	const onChangeLanguage = (linguageToSet: Language) => {
+		setLanguage(linguageToSet)
+		changeLanguage(linguageToSet)
+	}
+
 	return (
 		<div className="relative">
 			<div className="mx-auto max-w-2xl px-4 relative z-10">
-				<Navbar />
+				<Navbar language={language} onChangeLanguage={onChangeLanguage} />
 
 				<main>
-					<Main name={githubData.name!} bio={githubData.bio!} />
+					<Main name="Gabriel" language={language} />
+					<Professional language={language} />
+					<Academic language={language} />
+					<Skills language={language} />
+					<Projects language={language} />
 
-					<Professional />
-					<Education />
-					<Skills />
-					<Projects />
-
-					<Contact />
+					<Contact language={language} />
 				</main>
-				<Footer />
+				<Footer language={language} />
 			</div>
 		</div>
 	)

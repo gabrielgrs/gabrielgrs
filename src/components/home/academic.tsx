@@ -1,16 +1,19 @@
 'use client'
 
+import { texts } from '@/utils/texts'
+import { Language } from '@/utils/texts/type'
 import dayjs from 'dayjs'
 import { motion } from 'framer-motion'
 import { Minus } from 'lucide-react'
-import { education } from './helpers'
 
-export function Education() {
+export function Academic({ language }: { language: Language }) {
+	const { academic } = texts[language]
+
 	return (
 		<section className="relative backdrop-blur">
-			<h2 className="relative">Education</h2>
+			<h2 className="relative">{academic.title}</h2>
 			<ul className="flex flex-col gap-4 pb-10">
-				{education
+				{academic.list
 					.sort((a, b) => b.startAt.getTime() - a.startAt.getTime())
 					.map((item, index) => (
 						<motion.li

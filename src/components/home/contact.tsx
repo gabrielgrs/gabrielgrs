@@ -1,9 +1,13 @@
 'use client'
 
+import { texts } from '@/utils/texts'
+import { Language } from '@/utils/texts/type'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
-export function Contact() {
+export function Contact({ language }: { language: Language }) {
+	const { contact } = texts[language]
+
 	return (
 		<section id="contact" className="relative flex flex-col items-center justify-center gap-6 min-h-screen">
 			<motion.h1
@@ -12,7 +16,7 @@ export function Contact() {
 				transition={{ duration: 1 }}
 				className="text-center text-9xl font-bold text-foreground/20"
 			>
-				Say hello
+				{contact.title}
 			</motion.h1>
 			<a
 				href="mailto:grxgabriel@gmail"

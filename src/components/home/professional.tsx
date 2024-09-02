@@ -1,25 +1,27 @@
 'use client'
 
 import { cn } from '@/utils/cn'
+import { texts } from '@/utils/texts'
+import { Language } from '@/utils/texts/type'
 import dayjs from 'dayjs'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown, Minus } from 'lucide-react'
 import { useState } from 'react'
-import { works } from './helpers'
 
-export function Professional() {
+export function Professional({ language }: { language: Language }) {
 	const [openSetions, setOpenSetions] = useState<number[]>([])
+	const { professional } = texts[language]
 
 	return (
 		<section className="mt-20 relative backdrop-blur">
-			<h2 className="relative">Professionals</h2>
+			<h2 className="relative">{professional.title}</h2>
 			<ul className="flex flex-col gap-4 pb-10">
-				{works
+				{professional.list
 					.sort((a, b) => b.startAt.getTime() - a.startAt.getTime())
 					.map((item, index) => {
 						return (
 							<motion.li
-								key={`work_${item.title}_${index}`}
+								key={`work_${item.role}_${index}`}
 								whileInView={{ opacity: 1, filter: 'blur(0px)' }}
 								initial={{ opacity: 0, filter: 'blur(10px)' }}
 								transition={{ delay: 0.3 * index }}
@@ -30,8 +32,8 @@ export function Professional() {
 									{item.endAt ? dayjs(item.endAt).format('MMM YYYY') : 'Present'}
 								</div>
 								<div className="flex flex-col gap-2">
-									<span>{item.title}</span>
-									<span className="text-sm text-gray-400">{item.institution}</span>
+									<span>{item.role}</span>
+									<span className="text-sm text-gray-400">{item.company}</span>
 								</div>
 								<button
 									className={'opacity-70 hover:opacity-100 duration-500'}
