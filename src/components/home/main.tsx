@@ -48,7 +48,7 @@ export function Main() {
 					</motion.p>
 				</div>
 			</section>
-			<div className="flex flex-col justify-center items-center absolute bottom-4 left-[50%] translate-x-[-50%]">
+			<div className="flex flex-col justify-center items-center absolute bottom-14 md:bottom-10 left-[50%] translate-x-[-50%]">
 				<a href="#about" className=" text-gray-500 flex gap-2 flex-col items-center justify-center">
 					{main.scroll}
 					<ChevronDown className="text-primary/50 animate-bounce" />
