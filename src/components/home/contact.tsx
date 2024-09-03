@@ -17,7 +17,7 @@ export function Contact() {
 				transition={{ duration: 1 }}
 				className="text-center text-9xl font-bold text-foreground/20"
 			>
-				{contact.title}
+				{contact.text}
 			</motion.h1>
 			<a
 				href="mailto:grxgabriel@gmail"

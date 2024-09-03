@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 export function Main() {
 	const {
-		texts: { main },
+		texts: { main, about },
 	} = useLanguage()
 
 	return (
@@ -44,7 +44,7 @@ export function Main() {
 						transition={{ delay: 1 }}
 						className="max-w-80 text-xl text-foreground/90"
 					>
-						{main.description}
+						{about.description}
 					</motion.p>
 				</div>
 			</section>

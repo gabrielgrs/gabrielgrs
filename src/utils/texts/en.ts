@@ -3,6 +3,7 @@ import { Texts } from './type'
 export const en: Texts = {
 	navbar: {
 		email: 'Email',
+		resume: 'Resume',
 		github: 'Github',
 		linkedin: 'LinkedIn',
 		language: 'pt',
@@ -11,8 +12,11 @@ export const en: Texts = {
 	main: {
 		greeting: 'Hello, I am Gabriel',
 		job: 'Digital Craftsman',
-		description: 'Technologies, innovation, entrepreneurship, and front-end engineer',
 		scroll: 'Scroll down',
+	},
+	about: {
+		title: 'About',
+		description: 'Technologies, innovation, entrepreneurship, and front-end engineer',
 	},
 	professional: {
 		title: 'Professional',
@@ -22,54 +26,38 @@ export const en: Texts = {
 				company: 'Stefanini IT',
 				startAt: new Date(2017, 1),
 				endAt: new Date(2018, 8),
-				description: '',
+				description:
+					'Developed a state government system for law enforcement and sanctioning using VB.Net, contributing to a project that had a direct impact on legislative management.',
 			},
 			{
-				role: 'Mid-level full-stack developer',
+				role: 'Mid-level Full-stack Developer',
 				company: 'Stefanini IT',
 				startAt: new Date(2018, 8),
 				endAt: new Date(2018, 12),
-				description: '',
+				description:
+					'Worked on the development of course management systems for the state government using Node.js and Angular.js, and later participated in internal company projects with Node.js and React.',
 			},
 			{
-				role: 'Freelance developer',
-				company: 'Leopardus',
-				startAt: new Date(2022, 9),
-				endAt: new Date(2022, 9),
-				description: '',
-			},
-			{
-				role: 'Senior full-stack developer',
+				role: 'Senior Full-stack Developer',
 				company: 'Biodinâmica Saúde',
-				startAt: new Date(2021, 9),
-				endAt: new Date(2022, 4),
-				description: '',
+				startAt: new Date(2018, 9),
+				endAt: new Date(2019, 4),
+				description:
+					'Developed internal systems for medical appointment management, virtual assistance, and financial control using Node.js and Next.js, bringing operational efficiency to medical and administrative processes.',
 			},
 			{
-				role: 'Senior front-end developer',
+				role: 'Senior Front-end Developer',
 				company: 'Trinca',
 				startAt: new Date(2019, 0),
 				endAt: null,
-				description: '',
-			},
-			{
-				role: 'Freelance developer',
-				company: 'Psiseguro',
-				startAt: new Date(2023, 10),
-				endAt: null,
-				description: '',
+				description:
+					'Started as a mobile and full-stack developer, but quickly transitioned to front-end development, initially working with React and Redux, and later focusing exclusively on Next.js to build scalable and dynamic interfaces.',
 			},
 		],
 	},
 	academic: {
 		title: 'Academic',
 		list: [
-			{
-				title: 'Microsoft Academy',
-				institution: 'PUC',
-				startAt: new Date(2016, 9),
-				endAt: new Date(2021, 5),
-			},
 			{
 				title: 'Systems analysis and development',
 				institution: 'Senac',
@@ -86,6 +74,8 @@ export const en: Texts = {
 	},
 	projects: {
 		title: 'Projects',
+		source: 'Source',
+		website: 'Website',
 		list: [
 			{
 				title: 'Project 1',
@@ -105,10 +95,26 @@ export const en: Texts = {
 	},
 	skills: {
 		title: 'Skills',
-		list: ['Vim', 'Neovim', 'VSCode', 'React', 'Next', 'Typescript', 'Tailwind', 'Git', 'Azure', 'Figma'],
+		list: [
+			'Next',
+			'React',
+			'Typescript',
+			'Tailwind',
+			'Jest',
+			'MongoDB',
+			'PostgreSQL',
+			'Vim',
+			'Neovim',
+			'VSCode',
+			'Git',
+			'Azure',
+			'Figma',
+		],
 	},
 	contact: {
-		title: 'Say hello',
+		title: 'Contact',
+		text: 'Say hello',
+		address: 'Florianopolis, Brazil',
 	},
 	buyMeCoffee: 'Buy me a coffee',
 	footer: {

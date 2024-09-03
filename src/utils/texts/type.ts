@@ -24,6 +24,7 @@ type ProjectItem = {
 
 export type Texts = {
 	navbar: {
+		resume: string
 		email: string
 		github: string
 		linkedin: string
@@ -33,8 +34,11 @@ export type Texts = {
 	main: {
 		greeting: string
 		job: string
-		description: string
 		scroll: string
+	}
+	about: {
+		title: string
+		description: string
 	}
 	professional: {
 		title: string
@@ -46,8 +50,8 @@ export type Texts = {
 	}
 	projects: {
 		title: string
-		source?: string
-		website?: string
+		source: string
+		website: string
 		list: ProjectItem[]
 	}
 	skills: {
@@ -56,6 +60,8 @@ export type Texts = {
 	}
 	contact: {
 		title: string
+		text: string
+		address: string
 	}
 	buyMeCoffee: string
 	footer: {

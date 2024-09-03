@@ -1,5 +1,4 @@
 'use client'
-
 import { Academic } from './academic'
 import { Contact } from './contact'
 import { Footer } from './footer'
@@ -21,7 +20,6 @@ export function HomeTemplate() {
 					<Academic />
 					<Skills />
 					<Projects />
-
 					<Contact />
 				</main>
 				<Footer />
