@@ -1,13 +1,14 @@
 'use client'
 
-import { texts } from '@/utils/texts'
-import { Language } from '@/utils/texts/type'
+import { useLanguage } from '@/hooks/useLanguage'
 import dayjs from 'dayjs'
 import { motion } from 'framer-motion'
 import { Minus } from 'lucide-react'
 
-export function Academic({ language }: { language: Language }) {
-	const { academic } = texts[language]
+export function Academic() {
+	const {
+		texts: { academic },
+	} = useLanguage()
 
 	return (
 		<section className="relative backdrop-blur">

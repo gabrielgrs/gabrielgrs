@@ -1,12 +1,13 @@
 'use client'
 
-import { texts } from '@/utils/texts'
-import { Language } from '@/utils/texts/type'
+import { useLanguage } from '@/hooks/useLanguage'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
-export function Contact({ language }: { language: Language }) {
-	const { contact } = texts[language]
+export function Contact() {
+	const {
+		texts: { contact },
+	} = useLanguage()
 
 	return (
 		<section id="contact" className="relative flex flex-col items-center justify-center gap-6 min-h-screen">

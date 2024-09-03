@@ -1,8 +1,11 @@
-import { texts } from '@/utils/texts'
-import { Language } from '@/utils/texts/type'
+'use client'
 
-export function Footer({ language }: { language: Language }) {
-	const { footer, buyMeCoffee } = texts[language]
+import { useLanguage } from '@/hooks/useLanguage'
+
+export function Footer() {
+	const {
+		texts: { footer, buyMeCoffee },
+	} = useLanguage()
 
 	return (
 		<>

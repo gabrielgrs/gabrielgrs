@@ -1,11 +1,12 @@
 'use client'
 
-import { texts } from '@/utils/texts'
-import { Language } from '@/utils/texts/type'
+import { useLanguage } from '@/hooks/useLanguage'
 import { motion } from 'framer-motion'
 
-export function Skills({ language }: { language: Language }) {
-	const { skills } = texts[language]
+export function Skills() {
+	const {
+		texts: { skills },
+	} = useLanguage()
 
 	return (
 		<section className="pb-10 relative backdrop-blur-sm">

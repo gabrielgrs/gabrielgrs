@@ -1,13 +1,14 @@
 'use client'
 
-import { texts } from '@/utils/texts'
-import { Language } from '@/utils/texts/type'
+import { useLanguage } from '@/hooks/useLanguage'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
-export function Projects({ language }: { language: Language }) {
+export function Projects() {
 	const [hovered, setHovered] = useState(-1)
-	const { projects } = texts[language]
+	const {
+		texts: { projects },
+	} = useLanguage()
 
 	return (
 		<section className="relative backdrop-blur">

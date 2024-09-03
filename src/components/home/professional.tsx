@@ -1,16 +1,17 @@
 'use client'
 
+import { useLanguage } from '@/hooks/useLanguage'
 import { cn } from '@/utils/cn'
-import { texts } from '@/utils/texts'
-import { Language } from '@/utils/texts/type'
 import dayjs from 'dayjs'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown, Minus } from 'lucide-react'
 import { useState } from 'react'
 
-export function Professional({ language }: { language: Language }) {
+export function Professional() {
 	const [openSetions, setOpenSetions] = useState<number[]>([])
-	const { professional } = texts[language]
+	const {
+		texts: { professional },
+	} = useLanguage()
 
 	return (
 		<section className="mt-20 relative backdrop-blur">

@@ -1,8 +1,8 @@
 'use client'
 
+import { useLanguage } from '@/hooks/useLanguage'
 import { cn } from '@/utils/cn'
-import { texts } from '@/utils/texts'
-import { Language, Texts } from '@/utils/texts/type'
+import { Texts } from '@/utils/texts/type'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Languages, Lightbulb } from 'lucide-react'
 import { useTheme } from 'next-themes'
@@ -23,14 +23,13 @@ const getLinks = (navbarTexts: Texts['navbar']) => [
 	},
 ]
 
-type Props = {
-	language: Language
-	onChangeLanguage: (linguageToSet: Language) => void
-}
-
-export function Navbar({ language, onChangeLanguage }: Props) {
+export function Navbar() {
 	const { theme, setTheme } = useTheme()
-	const { navbar } = texts[language]
+	const {
+		language,
+		onChangeLanguage,
+		texts: { navbar },
+	} = useLanguage()
 
 	return (
 		<header className="flex justify-around items-center text-sm h-14 w-full backdrop-blur-lg max-w-5xl fixed top-1 left-1/2 -translate-x-1/2 rounded-full z-50">
