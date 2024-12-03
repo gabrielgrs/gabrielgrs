@@ -78,18 +78,14 @@ export const en: Texts = {
 		website: 'Website',
 		list: [
 			{
-				title: 'Project 1',
-				description:
-					'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.',
-				source: 'github.com',
-				website: 'website.com',
+				title: 'Lets Boxing',
+				description: 'A platform for boxing training.',
+				website: 'https://letsboxing.vercel.app',
 			},
 			{
-				title: 'Project 2',
-				description:
-					'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.',
-				source: 'github.com',
-				website: 'website.com',
+				title: 'Send Happy',
+				description: 'A platform for sending happy messages.',
+				website: 'https://sendhappy.co',
 			},
 		],
 	},

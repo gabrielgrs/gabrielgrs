@@ -14,7 +14,7 @@ export function Professional() {
 	} = useLanguage()
 
 	return (
-		<section className="mt-20 relative backdrop-blur">
+		<section className="relative backdrop-blur">
 			<h2 className="relative">{professional.title}</h2>
 			<ul className="flex flex-col gap-4 pb-10">
 				{professional.list

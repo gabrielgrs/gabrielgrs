@@ -13,7 +13,7 @@ export function Projects() {
 	return (
 		<section className="relative backdrop-blur">
 			<h2 className="relative">{projects.title}</h2>
-			<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+			<ul>
 				{projects.list.map((project, index) => (
 					<motion.li
 						key={`project_${project.title}_${index}`}

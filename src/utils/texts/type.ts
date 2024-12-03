@@ -18,8 +18,8 @@ type AcademicItem = {
 type ProjectItem = {
 	title: string
 	description: string
-	source: string
-	website: string
+	source?: string
+	website?: string
 }
 
 export type Texts = {
