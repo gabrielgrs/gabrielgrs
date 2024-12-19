@@ -96,6 +96,7 @@ export const en: Texts = {
 			'React',
 			'Typescript',
 			'Tailwind',
+			'Motion',
 			'Jest',
 			'MongoDB',
 			'PostgreSQL',

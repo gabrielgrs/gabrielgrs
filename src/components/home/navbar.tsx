@@ -1,6 +1,4 @@
 'use client'
-
-import { downloadPdfFromUrl } from '@/actions/converter'
 import { useLanguage } from '@/hooks/useLanguage'
 import { cn } from '@/utils/cn'
 import { EMAIL, GITHUB_URL, LINKEDIN_URL } from '@/utils/constants'
@@ -8,7 +6,7 @@ import { Texts } from '@/utils/texts/type'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, FileText, Languages, Lightbulb, Loader2 } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { OnlyClient } from '../only-client'
 
 const getLinks = (navbarTexts: Texts['navbar']) => [
@@ -30,6 +28,7 @@ const ANIMATION_DURATION = 0.3
 
 export function Navbar() {
 	const [generatingResume, setIsGeneratingResume] = useState(false)
+	const [isOnTop, setIsOnTop] = useState(false)
 
 	const { theme, setTheme } = useTheme()
 	const {
@@ -38,21 +37,54 @@ export function Navbar() {
 		texts: { navbar },
 	} = useLanguage()
 
-	const onGenerateResume = async () => {
-		setIsGeneratingResume(true)
-		const targetUrl = `${window.location.origin}/resume`
-		const base64Pdf = await downloadPdfFromUrl(targetUrl)
-		// download base64 as pdf
+	useEffect(() => {
+		const onScroll = () => {
+			setIsOnTop(window.scrollY < 30)
+		}
 
-		const link = document.createElement('a')
-		link.href = `data:application/pdf;base64,${base64Pdf}`
-		link.download = 'resume.pdf'
-		link.click()
-		setIsGeneratingResume(false)
+		onScroll()
+
+		window.addEventListener('scroll', onScroll)
+		return () => {
+			window.removeEventListener('scroll', onScroll)
+		}
+	}, [])
+
+	const onGenerateResume = async () => {
+		try {
+			setIsGeneratingResume(true)
+			// Instead of constructing the URL, directly call the API endpoint
+			const response = await fetch('/api/generate-resume')
+
+			if (!response.ok) {
+				throw new Error('Failed to generate PDF')
+			}
+
+			const blob = await response.blob()
+			const url = window.URL.createObjectURL(blob)
+
+			const link = document.createElement('a')
+			link.href = url
+			link.download = 'resume.pdf'
+			link.click()
+
+			// Cleanup
+			window.URL.revokeObjectURL(url)
+		} catch (error) {
+			console.error('Failed to generate resume:', error)
+			// Handle error appropriately
+		} finally {
+			setIsGeneratingResume(false)
+		}
 	}
 
 	return (
-		<header className="flex justify-around items-center text-sm h-14 w-full backdrop-blur-lg max-w-5xl fixed top-1 left-1/2 -translate-x-1/2 rounded-full z-50">
+		<header
+			className={cn(
+				'duration-500 w-full sticky top-0 flex justify-center items-center z-50',
+				isOnTop ? 'h-20' : 'backdrop-blur-lg h-14',
+			)}
+		>
 			<motion.span
 				initial={{ y: -100 }}
 				animate={{ y: 0 }}
@@ -61,7 +93,7 @@ export function Navbar() {
 			>
 				gabrielgrs
 			</motion.span>
-			<nav className="flex items-center gap-1 md:gap-4">
+			<nav className="flex items-center gap-0 md:gap-4">
 				{getLinks(navbar).map((link, index) => (
 					<motion.a
 						key={link.title}
@@ -83,7 +115,7 @@ export function Navbar() {
 
 						<ArrowUpRight
 							size={14}
-							className="text-gray-500 group-hover:text-foreground group-hover:rotate-45 duration-500"
+							className="text-gray-500 group-hover:text-foreground group-hover:rotate-45 duration-500 hidden md:block"
 						/>
 					</motion.a>
 				))}
@@ -97,7 +129,7 @@ export function Navbar() {
 					onClick={() => onChangeLanguage(language === 'en' ? 'pt' : 'en')}
 					className="flex items-center gap-1 px-2 py-1 hover:bg-foreground rounded-full hover:text-background duration-500"
 				>
-					{navbar.language} <Languages size={12} />
+					{navbar.language} <Languages size={14} className="hidden md:block" />
 				</motion.button>
 				<OnlyClient>
 					<motion.button
@@ -113,7 +145,7 @@ export function Navbar() {
 							theme === 'dark' && 'line-through',
 						)}
 					>
-						{navbar.theme} <Lightbulb size={12} />
+						{navbar.theme} <Lightbulb size={14} className="hidden md:block" />
 					</motion.button>
 				</OnlyClient>
 				<motion.button
@@ -127,7 +159,9 @@ export function Navbar() {
 					onClick={() => onGenerateResume()}
 					className="flex items-center gap-1 px-2 py-1 hover:bg-foreground rounded-full hover:text-background duration-500"
 				>
-					{navbar.resume} {generatingResume ? <Loader2 className="animate-spin" size={12} /> : <FileText size={12} />}
+					{!generatingResume && navbar.resume}
+					{generatingResume && <Loader2 className="animate-spin" size={14} />}
+					{!generatingResume && <FileText size={14} className="hidden md:block" />}
 				</motion.button>
 			</nav>
 		</header>
