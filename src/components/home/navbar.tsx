@@ -4,7 +4,7 @@ import { cn } from '@/utils/cn'
 import { EMAIL, GITHUB_URL, LINKEDIN_URL } from '@/utils/constants'
 import { Texts } from '@/utils/texts/type'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, FileText, Languages, Lightbulb, Loader2 } from 'lucide-react'
+import { ArrowUpRight, FileText, Languages, Lightbulb } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { OnlyClient } from '../only-client'
@@ -26,8 +26,7 @@ const getLinks = (navbarTexts: Texts['navbar']) => [
 
 const ANIMATION_DURATION = 0.3
 
-export function Navbar() {
-	const [generatingResume, setIsGeneratingResume] = useState(false)
+export function Navbar({ onGenerateResume }: { onGenerateResume: () => void }) {
 	const [isOnTop, setIsOnTop] = useState(false)
 
 	const { theme, setTheme } = useTheme()
@@ -50,34 +49,6 @@ export function Navbar() {
 		}
 	}, [])
 
-	const onGenerateResume = async () => {
-		try {
-			setIsGeneratingResume(true)
-			// Instead of constructing the URL, directly call the API endpoint
-			const response = await fetch('/api/generate-resume')
-
-			if (!response.ok) {
-				throw new Error('Failed to generate PDF')
-			}
-
-			const blob = await response.blob()
-			const url = window.URL.createObjectURL(blob)
-
-			const link = document.createElement('a')
-			link.href = url
-			link.download = 'resume.pdf'
-			link.click()
-
-			// Cleanup
-			window.URL.revokeObjectURL(url)
-		} catch (error) {
-			console.error('Failed to generate resume:', error)
-			// Handle error appropriately
-		} finally {
-			setIsGeneratingResume(false)
-		}
-	}
-
 	return (
 		<header
 			className={cn(
@@ -89,7 +60,7 @@ export function Navbar() {
 				initial={{ y: -100 }}
 				animate={{ y: 0 }}
 				transition={{ duration: ANIMATION_DURATION }}
-				className="hidden md:block"
+				className="hidden md:block min-w-32"
 			>
 				gabrielgrs
 			</motion.span>
@@ -149,7 +120,6 @@ export function Navbar() {
 					</motion.button>
 				</OnlyClient>
 				<motion.button
-					disabled={generatingResume}
 					initial={{ y: -100 }}
 					animate={{ y: 0 }}
 					transition={{
@@ -159,9 +129,8 @@ export function Navbar() {
 					onClick={() => onGenerateResume()}
 					className="flex items-center gap-1 px-2 py-1 hover:bg-foreground rounded-full hover:text-background duration-500"
 				>
-					{!generatingResume && navbar.resume}
-					{generatingResume && <Loader2 className="animate-spin" size={14} />}
-					{!generatingResume && <FileText size={14} className="hidden md:block" />}
+					Resume
+					<FileText size={14} className="hidden md:block" />
 				</motion.button>
 			</nav>
 		</header>

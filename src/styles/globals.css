@@ -63,3 +63,18 @@
 	transform-style: flat;
 	pointer-events: none;
 }
+
+
+.only-print {
+  @apply hidden;
+}
+
+@media print {
+  .hide-print {
+   @apply hidden; 
+  }
+
+  .only-print {
+    @apply block;
+  }
+}
