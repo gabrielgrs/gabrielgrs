@@ -39,6 +39,8 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --font-sans: var(--font-urbanist);
+  --font-pixel: var(--font-pixelify);
+  --font-pixel-display: var(--font-press-start);
   --radius-5xl: 2.5rem;
 }
 
@@ -103,65 +105,123 @@ body {
 }
 
 /*
- * Main menu: a floating pill at the top of the page that docks into a MacBook-style notch
- * (flush with the top edge, rounded bottom corners, concave "ears") once the page scrolls.
+ * Main menu: a pill in the hero that docks into a MacBook-style notch (flush with the top
+ * edge, rounded bottom corners) once it scrolls up to the top.
  */
 .notch {
-  --ear: 14px;
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
-  position: relative;
   background: var(--background);
   border-radius: 28px;
-  translate: 0 16px;
-  /* drop-shadow follows the full shape, ears included, so the edge reads on any backdrop. */
+  /* drop-shadow follows the shape, so the edge reads on any backdrop. */
   --edge: color-mix(in srgb, var(--foreground) 22%, transparent);
   filter: drop-shadow(0 0 0.5px var(--edge)) drop-shadow(0 12px 28px rgb(0 0 0 / 0.22));
   transition:
-    translate 600ms var(--ease),
     border-radius 600ms var(--ease),
     padding 600ms var(--ease),
     filter 400ms ease;
 }
 
 .notch[data-docked] {
-  translate: 0 0;
   border-radius: 0 0 24px 24px;
   padding-inline: 14px;
   padding-top: 4px;
   filter: drop-shadow(0 0 0.5px var(--edge)) drop-shadow(0 8px 20px rgb(0 0 0 / 0.12));
 }
 
-.notch::before,
-.notch::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: var(--ear);
-  height: var(--ear);
-  opacity: 0;
-  transition: opacity 200ms ease;
+@media (prefers-reduced-motion: reduce) {
+  .notch {
+    transition: none;
+  }
 }
 
-.notch[data-docked]::before,
-.notch[data-docked]::after {
-  opacity: 1;
-  transition: opacity 300ms ease 300ms;
+/* lp-v2: pixel-art skin. Borders are four hard shadows, which leaves the corners notched. */
+.px-box,
+.px-btn {
+  --px: 4px;
+  --c: var(--foreground);
+  box-shadow:
+    0 calc(-1 * var(--px)) 0 0 var(--c),
+    0 var(--px) 0 0 var(--c),
+    calc(-1 * var(--px)) 0 0 0 var(--c),
+    var(--px) 0 0 0 var(--c),
+    var(--lift, 0 0 transparent);
 }
 
-.notch::before {
-  right: 100%;
-  background: radial-gradient(circle at 0 100%, transparent var(--ear), var(--background) calc(var(--ear) + 0.5px));
+/* 8-bit bevel: lit top-left, shaded bottom-right. */
+.px-btn {
+  box-shadow:
+    0 calc(-1 * var(--px)) 0 0 var(--c),
+    0 var(--px) 0 0 var(--c),
+    calc(-1 * var(--px)) 0 0 0 var(--c),
+    var(--px) 0 0 0 var(--c),
+    inset calc(-1 * var(--px)) calc(-1 * var(--px)) 0 0 rgb(0 0 0 / 0.25),
+    inset var(--px) var(--px) 0 0 rgb(255 255 255 / 0.2);
 }
 
-.notch::after {
-  left: 100%;
-  background: radial-gradient(circle at 100% 100%, transparent var(--ear), var(--background) calc(var(--ear) + 0.5px));
+.px-btn:hover {
+  translate: 0 -4px;
+}
+
+.px-btn:active {
+  translate: 0 2px;
+}
+
+.px-card:hover {
+  translate: -4px -4px;
+  --lift: 8px 8px 0 0 var(--accent);
+}
+
+.px-menu button {
+  border-radius: 0;
+}
+
+/* Hero top corners stepped like a pixel-art rounded rectangle. */
+.px-corners {
+  --s: 8px;
+  clip-path: polygon(
+    0 100%, 0 calc(3 * var(--s)), var(--s) calc(3 * var(--s)), var(--s) var(--s), calc(3 * var(--s)) var(--s),
+    calc(3 * var(--s)) 0, calc(100% - 3 * var(--s)) 0, calc(100% - 3 * var(--s)) var(--s), calc(100% - var(--s)) var(--s),
+    calc(100% - var(--s)) calc(3 * var(--s)), 100% calc(3 * var(--s)), 100% 100%
+  );
+}
+
+@keyframes px-rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+.px-rise {
+  animation: px-rise 480ms steps(4) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.px-wave {
+  transform-origin: 70% 70%;
+  animation: wave 2.4s steps(2) 1s 2;
+}
+
+@keyframes px-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.px-blink {
+  animation: px-blink 1s steps(1) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .notch,
-  .notch::before,
-  .notch::after {
-    transition: none;
+  .px-rise,
+  .px-wave,
+  .px-blink {
+    animation: none;
+  }
+
+  .px-btn:hover,
+  .px-btn:active,
+  .px-card:hover {
+    translate: none;
   }
 }

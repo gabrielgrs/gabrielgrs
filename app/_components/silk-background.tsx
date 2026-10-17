@@ -18,9 +18,19 @@ uniform float uTime;
 uniform vec3 uBackground;
 uniform vec3 uInk;
 uniform float uStrength;
+uniform float uSteps; // > 0: posterize into this many ordered-dithered levels (pixel mode)
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+float bayer2(vec2 a) {
+  a = floor(a);
+  return fract(a.x / 2.0 + a.y * a.y * 0.75);
+}
+
+float bayer4(vec2 a) {
+  return bayer2(0.5 * a) * 0.25 + bayer2(a);
 }
 
 float height(vec2 p, float t) {
@@ -52,7 +62,14 @@ void main() {
   // Strongest at the top edge, gone by a little past the middle.
   float mask = smoothstep(0.3, 1.0, uv.y);
 
-  vec3 color = mix(uBackground, uInk, shade * mask * uStrength);
+  float v = shade * mask * uStrength;
+  if (uSteps > 0.0) {
+    v = min(floor(v * uSteps + bayer4(gl_FragCoord.xy)) / uSteps, 1.0);
+    gl_FragColor = vec4(mix(uBackground, uInk, v), 1.0);
+    return;
+  }
+
+  vec3 color = mix(uBackground, uInk, v);
   color += (hash(gl_FragCoord.xy) - 0.5) / 255.0 * 2.0; // dither against banding
   gl_FragColor = vec4(color, 1.0);
 }
@@ -71,8 +88,11 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-/** Animated grayscale silk behind the hero. Colors come from --background and --silk in globals.css. */
-export function SilkBackground({ className = "" }: { className?: string }) {
+/**
+ * Animated grayscale silk behind the hero. Colors come from --background and --silk in globals.css.
+ * `pixel` renders it as chunky, dithered pixel art with blocks of that many CSS pixels.
+ */
+export function SilkBackground({ className = "", pixel }: { className?: string; pixel?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -99,6 +119,7 @@ export function SilkBackground({ className = "" }: { className?: string }) {
     const uBackground = uniform("uBackground");
     const uInk = uniform("uInk");
     const uStrength = uniform("uStrength");
+    gl.uniform1f(uniform("uSteps"), pixel ? 4 : 0);
 
     const applyTheme = () => {
       gl.uniform3fv(uBackground, readColor("--background"));
@@ -108,7 +129,7 @@ export function SilkBackground({ className = "" }: { className?: string }) {
 
     // Smooth gradients don't need full resolution; the browser's upscale keeps them soft.
     const resize = () => {
-      const scale = Math.min(devicePixelRatio, 2) * 0.5;
+      const scale = pixel ? 1 / pixel : Math.min(devicePixelRatio, 2) * 0.5;
       canvas.width = Math.max(1, Math.round(canvas.clientWidth * scale));
       canvas.height = Math.max(1, Math.round(canvas.clientHeight * scale));
       gl.viewport(0, 0, canvas.width, canvas.height);
@@ -166,13 +187,13 @@ export function SilkBackground({ className = "" }: { className?: string }) {
       viewObserver.disconnect();
       document.removeEventListener("visibilitychange", play);
     };
-  }, []);
+  }, [pixel]);
 
   return (
     <canvas
       ref={canvasRef}
       aria-hidden
-      className={`pointer-events-none opacity-0 transition-opacity duration-1000 data-[ready]:opacity-100 ${className}`}
+      className={`pointer-events-none opacity-0 transition-opacity duration-1000 data-[ready]:opacity-100 ${pixel ? "[image-rendering:pixelated]" : ""} ${className}`}
     />
   );
 }
