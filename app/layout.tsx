@@ -14,14 +14,14 @@ const martian = Martian_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gabriel Ribeiro — Front-end engineer",
+  title: "Gabriel Ribeiro — Software engineer",
   description:
-    "Gabriel Ribeiro is a front-end engineer in Florianópolis, Brazil, building interfaces with React and Next.js since 2017.",
+    "Gabriel Ribeiro is a software engineer and digital nomad, currently in Brazil, specializing in AI and the JavaScript ecosystem.",
   authors: [{ name: "Gabriel Ribeiro", url: "https://github.com/gabrielgrs" }],
   openGraph: {
-    title: "Gabriel Ribeiro — Front-end engineer",
+    title: "Gabriel Ribeiro — Software engineer",
     description:
-      "Front-end engineer in Florianópolis, Brazil. React, Next.js and TypeScript since 2017.",
+      "Software engineer and digital nomad, currently in Brazil. AI and the JavaScript ecosystem.",
     type: "profile",
   },
   twitter: { card: "summary_large_image", creator: "@gabugando" },

@@ -120,6 +120,11 @@ body {
   animation: fit 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Big type below the hero shares the name's condensed width; hovering a project relaxes it. */
+.fit {
+  font-variation-settings: "wdth" 68;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
