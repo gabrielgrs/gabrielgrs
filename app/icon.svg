@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <style>
-    path { stroke: #010101 } circle { fill: #c0166a }
-    @media (prefers-color-scheme: dark) { path { stroke: #fafafa } circle { fill: #ff5ea8 } }
+    path { stroke: #1d2fc9 } circle { fill: #1d2fc9 }
+    @media (prefers-color-scheme: dark) { path { stroke: #d4dbff } circle { fill: #d4dbff } }
   </style>
   <path d="M23.78 8.22A11 11 0 1 0 27 16h-6.5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
   <circle cx="15.5" cy="16" r="2.25"/>

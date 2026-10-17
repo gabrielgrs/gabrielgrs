@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Pixelify_Sans, Press_Start_2P } from "next/font/google";
 import { ArrowRightIcon, ArrowUpRightIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
 import { SilkBackground } from "../_components/silk-background";
-import { education, links, projects, work } from "../_components/sections";
+import { education, links, projects, work } from "../_components/data";
 import { PixelMenu } from "./pixel-menu";
 
 const pixelify = Pixelify_Sans({ variable: "--font-pixelify", subsets: ["latin", "latin-ext"] });

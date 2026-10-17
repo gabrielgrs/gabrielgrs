@@ -1,9 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Urbanist } from "next/font/google";
+import { Archivo, Martian_Mono } from "next/font/google";
 import "./globals.css";
 
-const urbanist = Urbanist({
-  variable: "--font-urbanist",
+const archivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin", "latin-ext"],
+  axes: ["wdth"],
+});
+
+const martian = Martian_Mono({
+  variable: "--font-martian",
   subsets: ["latin", "latin-ext"],
 });
 
@@ -23,8 +29,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#010101" },
+    { media: "(prefers-color-scheme: light)", color: "#f1f3f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0f2e" },
   ],
 };
 
@@ -35,13 +41,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${urbanist.variable} antialiased`}
+      className={`${archivo.variable} ${martian.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-dvh font-sans">{children}</body>
+      <body className="min-h-dvh overflow-x-clip font-sans">{children}</body>
     </html>
   );
 }

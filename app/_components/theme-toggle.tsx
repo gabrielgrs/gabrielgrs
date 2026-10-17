@@ -30,12 +30,33 @@ export function ThemeToggle() {
     return () => media.removeEventListener("change", onChange);
   }, []);
 
-  function toggle() {
+  function toggle(event: React.MouseEvent<HTMLButtonElement>) {
     const next: Theme = current() === "dark" ? "light" : "dark";
-    root().dataset.theme = next;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
+    const apply = () => {
+      root().dataset.theme = next;
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
+    };
+
+    if (!document.startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) return apply();
+
+    // The new theme floods out of the button in a growing circle, big enough to reach the farthest corner.
+    const { left, top, width, height } = event.currentTarget.getBoundingClientRect();
+    const x = left + width / 2;
+    const y = top + height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+
+    document.startViewTransition(apply).ready.then(() => {
+      root().animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+        { duration: 750, easing: "cubic-bezier(0.65, 0, 0.35, 1)", pseudoElement: "::view-transition-new(root)" },
+      );
+      root().animate(
+        { scale: [1, 0.96], filter: ["blur(0)", "blur(4px)"] },
+        { duration: 750, easing: "cubic-bezier(0.65, 0, 0.35, 1)", pseudoElement: "::view-transition-old(root)" },
+      );
+    });
   }
 
   return (

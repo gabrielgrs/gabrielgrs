@@ -1,21 +1,22 @@
 @import "tailwindcss";
 
+/* One ink on one paper: everything on the page is a single blue, light or dark. */
 :root {
-  --background: #fafafa;
-  --foreground: #010101;
-  --muted: #5f5f5f;
-  --accent: #c0166a;
-  --silk: #8c8c8c;
+  --background: #f1f3f8;
+  --foreground: #1d2fc9;
+  --muted: #5a64b0;
+  --accent: #1d2fc9;
+  --silk: #8f99d8;
   --silk-strength: 0.6;
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --background: #010101;
-  --foreground: #fafafa;
-  --muted: #9a9a9a;
-  --accent: #ff5ea8;
-  --silk: #e6e6e6;
+  --background: #0a0f2e;
+  --foreground: #d4dbff;
+  --muted: #8f99d8;
+  --accent: #d4dbff;
+  --silk: #d4dbff;
   --silk-strength: 0.85;
   color-scheme: dark;
 }
@@ -23,11 +24,11 @@
 /* Without JavaScript the inline theme script never runs, so fall back to the system setting. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --background: #010101;
-    --foreground: #fafafa;
-    --muted: #9a9a9a;
-    --accent: #ff5ea8;
-    --silk: #e6e6e6;
+    --background: #0a0f2e;
+    --foreground: #d4dbff;
+    --muted: #8f99d8;
+    --accent: #d4dbff;
+    --silk: #d4dbff;
     --silk-strength: 0.85;
     color-scheme: dark;
   }
@@ -38,7 +39,8 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
-  --font-sans: var(--font-urbanist);
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-martian);
   --font-pixel: var(--font-pixelify);
   --font-pixel-display: var(--font-press-start);
   --radius-5xl: 2.5rem;
@@ -59,6 +61,11 @@ body {
   color: var(--foreground);
 }
 
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -70,20 +77,62 @@ body {
   display: none;
 }
 
-/* Hero entrance: each line rises in, staggered by --delay. */
+/* Theme switch: ThemeToggle drives the view transition by hand, so drop the default crossfade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* The old page sinks back while the new theme covers it. */
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* The icon that just appeared spins in with a little overshoot. */
+@keyframes icon-in {
+  from {
+    opacity: 0;
+    rotate: -120deg;
+    scale: 0.3;
+  }
+}
+
+.theme-light-only,
+.theme-dark-only {
+  animation: icon-in 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* The name arrives wide and pulls itself in to its condensed fit. */
+@keyframes fit {
+  from {
+    font-variation-settings: "wdth" 125;
+    letter-spacing: 0.04em;
+  }
+}
+
+.name {
+  font-variation-settings: "wdth" 68;
+  animation: fit 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
-    translate: 0 18px;
-    filter: blur(6px);
+    translate: 0 12px;
   }
 }
 
 .rise {
-  animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rise 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--delay, 0ms);
 }
 
+/* Used by lp-v2's .px-wave. */
 @keyframes wave {
   0%, 60%, 100% { rotate: 0deg; }
   10%, 30% { rotate: 14deg; }
@@ -92,45 +141,12 @@ body {
   50% { rotate: 10deg; }
 }
 
-.wave {
-  transform-origin: 70% 70%;
-  animation: wave 2.4s ease-in-out 1s 2;
-}
-
 @media (prefers-reduced-motion: reduce) {
+  .name,
   .rise,
-  .wave {
+  .theme-light-only,
+  .theme-dark-only {
     animation: none;
-  }
-}
-
-/*
- * Main menu: a pill in the hero that docks into a MacBook-style notch (flush with the top
- * edge, rounded bottom corners) once it scrolls up to the top.
- */
-.notch {
-  --ease: cubic-bezier(0.32, 0.72, 0, 1);
-  background: var(--background);
-  border-radius: 28px;
-  /* drop-shadow follows the shape, so the edge reads on any backdrop. */
-  --edge: color-mix(in srgb, var(--foreground) 22%, transparent);
-  filter: drop-shadow(0 0 0.5px var(--edge)) drop-shadow(0 12px 28px rgb(0 0 0 / 0.22));
-  transition:
-    border-radius 600ms var(--ease),
-    padding 600ms var(--ease),
-    filter 400ms ease;
-}
-
-.notch[data-docked] {
-  border-radius: 0 0 24px 24px;
-  padding-inline: 14px;
-  padding-top: 4px;
-  filter: drop-shadow(0 0 0.5px var(--edge)) drop-shadow(0 8px 20px rgb(0 0 0 / 0.12));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .notch {
-    transition: none;
   }
 }
 
